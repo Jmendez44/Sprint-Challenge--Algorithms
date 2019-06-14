@@ -99,45 +99,31 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
+        #Loop starts if light is off/False
+        while self.light_is_on() is False:
+            self.set_light_on() #Set light to true 
 
-        # if self.can_move_right:
-        #     self.move_right
-
-        self.set_light_on()
-        while self.light_is_on() == True:
-
-            self.move_right()
-            print(f'current item: {self._list}')
-
-            if self.compare_item() == -1 or self.compare_item() == None or self.compare_item() == 0:
-                self.move_left()
+            while self.can_move_right():
                 self.swap_item()
                 self.move_right()
-                self.swap_item()
 
-            if self.compare_item() == 1:
-                self.swap_item()
-                self.move_left()
-                self.swap_item()
-                self.move_right()
-                self.swap_item()
+                print(f'current item: {self._list}')
 
-                # if self.can_move_right() == False:
-                #     self.set_light_off()
-
-            # if l[0]
-
-            if self.can_move_right() == False:
-                self.swap_item()
-            # print(f'current item: {self._item}')
-
-                while self.can_move_left() == True:
+                if self.compare_item() == -1 or self.compare_item() == 0: #if current value is less than next value, move left and swap it with none, then move back to new value
                     self.move_left()
-                    continue
-                    self.set_light_off()
+                    self.swap_item()
+                    self.move_right()
 
-            # self.set_light_off()
+                if self.compare_item() == 1: #when greater than, grabs new lesser than value and brings it back a position
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    self.set_light_off() #set light off so on final loop there's no more greater numbers
+
+            if self.light_is_on() is False: #brings back to beginning of list
+                while self.can_move_left():
+                    self.move_left()
 
 
 if __name__ == "__main__":
